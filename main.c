@@ -1,6 +1,7 @@
-#include <stdio.h>
+#include "structure/index.c"
 
 int main() {
-    printf("Hello, World!\n");
+    printf("Hello, World! 2018\n");
+    processarMenu(showMenu(menu, 1));
     return 0;
 }
