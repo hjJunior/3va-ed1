@@ -30,8 +30,8 @@ int showMenu (char menu[][1000], int l){
 void irColunaLinha (int coluna, int linha){ SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),(COORD) {coluna,linha}); }
 
 int get_code (void){
-    int ch = getch();
-    if (ch == 0 || ch == 224) ch = 256 + getch();
+    int ch = _getch();
+    if (ch == 0 || ch == 224) ch = 256 + _getch();
     return ch;
 }
 
