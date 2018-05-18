@@ -1,20 +1,24 @@
 //
 // Created by helio.junior on 18/05/2018.
 //
-
-typedef struct elemento Lista;
-struct elemento {
+typedef struct alocacoes Alocacoes;
+struct alocacoes {
     int valor;
-    Lista *proximo;
-    Lista *anterior;
+    Alocacoes *proximo;
+    Alocacoes *anterior;
 };
 
-Lista *inicio, *fim;
-int tamanhoLista = 0;
+typedef struct memoria MemoriaList;
+struct memoria {
+    int tamanhoAlocacoes;
+    Alocacoes *inicio;
+    Alocacoes *fim;
+};
+MemoriaList *ListaMemoria;
 
 // Prototipos de funções
-void criaLista();
-void imprimeLista();
+void criaAlocacoes();
+void imprimeAlocacoes();
 void inserePosicao(int valor, int posicao);
 void removePosicao(int posicao);
-Lista* aloca (int valor);
+Alocacoes* aloca (int valor);
