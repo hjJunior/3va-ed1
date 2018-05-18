@@ -11,7 +11,11 @@ void criaAlocacoes () {
 
 void imprimeAlocacoes () {
     Alocacoes *atual = ListaMemoria.inicio;
-    for (; atual != NULL; atual=atual->proximo) printf("%d\n",atual->valor);
+    char hr[] = "|---------------";
+    printf("%s%s%s|\n", hr, hr, hr);
+    printf("| Capacidade\t| Cap. Usada \t| Cap. Livre \t|\n");
+    printf("%s%s%s|\n", hr, hr, hr);
+    for (; atual != NULL; atual=atual->proximo) printf("| %d\t\t| %d\t\t| %d\t\t|\n",atual->valorCapacidade, capacidadeUsada(atual), (atual->valorCapacidade - capacidadeUsada(atual)));
 }
 
 void inserePosicao (int valor, int posicao) {
@@ -62,7 +66,15 @@ void removePosicao (int posicao) {
 
 Alocacoes *aloca (int valor) {
     Alocacoes *novo = (Alocacoes*)malloc(sizeof(Alocacoes));
-    novo->valor = valor;
+    novo->valorCapacidade = valor;
+    novo->numProgramasAlocados = 0;
     novo->anterior = novo->proximo = NULL;
     return novo;
+}
+
+int capacidadeUsada (Alocacoes* alocacao) {
+    int i = 0, soma = 0;
+    if (alocacao == NULL) return -1;
+    else for (i = 0; i < alocacao->numProgramasAlocados; ++i) soma += alocacao->valorAlocado[i];
+    return soma;
 }

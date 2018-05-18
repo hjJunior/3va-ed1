@@ -1,9 +1,14 @@
 //
 // Created by helio.junior on 18/05/2018.
 //
+
+#define MAX_PROGRAMS_ALOCS 10
+
 typedef struct alocacoes Alocacoes;
 struct alocacoes {
-    int valor;
+    int valorAlocado[MAX_PROGRAMS_ALOCS];
+    int valorCapacidade;
+    int numProgramasAlocados;
     Alocacoes *proximo;
     Alocacoes *anterior;
 };
@@ -22,3 +27,4 @@ void imprimeAlocacoes();
 void inserePosicao(int valor, int posicao);
 void removePosicao(int posicao);
 Alocacoes* aloca (int valor);
+int capacidadeUsada (Alocacoes* alocacao);
