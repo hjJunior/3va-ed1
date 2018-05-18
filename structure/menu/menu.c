@@ -3,6 +3,7 @@
 //
 
 #include "menu.h"
+#include "acoes.c"
 
 int showMenu (char menu[][1000], int l){
     int i, tecla, linha = -1;
@@ -42,8 +43,8 @@ void marcarColuna (int coluna, int linha, char c) {
 
 void processarMenu (int selected){
     switch (selected) {
-        case 0: printf("\nYou have choiced: %s\n", menu[selected]); break;
-        case 1: printf("Nada haver\n"); break;
-        default: printf("Default\n"); break;
+        case 0: menu1_preparar(); break;
+        case 1: imprimeAlocacoes(); break;
+        default: printf("Precione qualquer tecla para sair %d\n", selected); break;
     }
 }

@@ -7,8 +7,8 @@
 #define menuSize 3
 
 char menu[menuSize][1000] = {
-    "Opcao 1",
-    "Opcao 2",
+    "Preparar memoria",
+    "Imprimir alocacoes",
     "Sair"
 };
 

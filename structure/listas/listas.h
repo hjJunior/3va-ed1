@@ -28,3 +28,4 @@ void inserePosicao(int valor, int posicao);
 void removePosicao(int posicao);
 Alocacoes* aloca (int valor);
 int capacidadeUsada (Alocacoes* alocacao);
+void pushAlocamento (int programSize, int posicao);

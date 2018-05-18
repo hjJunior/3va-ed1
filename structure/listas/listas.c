@@ -12,10 +12,10 @@ void criaAlocacoes () {
 void imprimeAlocacoes () {
     Alocacoes *atual = ListaMemoria.inicio;
     char hr[] = "|---------------";
-    printf("%s%s%s|\n", hr, hr, hr);
-    printf("| Capacidade\t| Cap. Usada \t| Cap. Livre \t|\n");
-    printf("%s%s%s|\n", hr, hr, hr);
-    for (; atual != NULL; atual=atual->proximo) printf("| %d\t\t| %d\t\t| %d\t\t|\n",atual->valorCapacidade, capacidadeUsada(atual), (atual->valorCapacidade - capacidadeUsada(atual)));
+    printf("%s%s%s%s|\n", hr, hr, hr, hr);
+    printf("| Capacidade\t| Cap. Usada \t| Cap. Livre \t| N. Programs \t|\n");
+    printf("%s%s%s%s|\n", hr, hr, hr, hr);
+    for (; atual != NULL; atual=atual->proximo) printf("| %d\t\t| %d\t\t| %d\t\t| %d\t\t|\n",atual->valorCapacidade, capacidadeUsada(atual), (atual->valorCapacidade - capacidadeUsada(atual)), atual->numProgramasAlocados);
 }
 
 void inserePosicao (int valor, int posicao) {
@@ -75,6 +75,19 @@ Alocacoes *aloca (int valor) {
 int capacidadeUsada (Alocacoes* alocacao) {
     int i = 0, soma = 0;
     if (alocacao == NULL) return -1;
-    else for (i = 0; i < alocacao->numProgramasAlocados; ++i) soma += alocacao->valorAlocado[i];
+    else for (i = 0; i < (int) alocacao->numProgramasAlocados; i++) {
+        soma = soma + alocacao->valorAlocado[i];
+    }
     return soma;
+}
+
+void pushAlocamento (int programSize, int posicao) {
+    int i, j, usado;
+    Alocacoes *atual = ListaMemoria.inicio;
+    for (i = 0; i < (posicao-1); i++) atual = atual->proximo;
+    usado = capacidadeUsada(atual);
+    if ((usado != -1) && ((atual->valorCapacidade - usado) >= programSize)) {
+        atual->valorAlocado[atual->numProgramasAlocados] = programSize;
+        atual->numProgramasAlocados = atual->numProgramasAlocados + 1;
+    } else printf("Memoria insuficiente para alocar %d\n", programSize);
 }
