@@ -14,7 +14,7 @@ struct memoria {
     Alocacoes *inicio;
     Alocacoes *fim;
 };
-MemoriaList *ListaMemoria;
+MemoriaList ListaMemoria;
 
 // Prototipos de funções
 void criaAlocacoes();

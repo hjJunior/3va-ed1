@@ -5,13 +5,12 @@
 #include "listas.h"
 
 void criaAlocacoes () {
-    ListaMemoria = NULL;
-    ListaMemoria->tamanhoAlocacoes = 0;
-    ListaMemoria->inicio = ListaMemoria->fim = NULL;
+    ListaMemoria.tamanhoAlocacoes = 0;
+    ListaMemoria.inicio = ListaMemoria.fim = NULL;
 }
 
 void imprimeAlocacoes () {
-    Alocacoes *atual = memoryList->inicio;
+    Alocacoes *atual = ListaMemoria.inicio;
     for (; atual != NULL; atual=atual->proximo) printf("%d\n",atual->valor);
 }
 
@@ -19,45 +18,45 @@ void inserePosicao (int valor, int posicao) {
     // Criando variaveis
     Alocacoes *novo = aloca(valor), *atual;
     int i = 0;
-    if ((posicao > memoryList->tamanhoAlocacoes) || (posicao < 0)) printf("Posicao invalida!\n");
+    if ((posicao > ListaMemoria.tamanhoAlocacoes) || (posicao < 0)) printf("Posicao invalida!\n");
     else {
-        atual = memoryList->inicio;
-        if (memoryList->tamanhoAlocacoes == 0) memoryList->inicio = memoryList->fim = novo;
-        else if (memoryList->tamanhoAlocacoes == posicao) {
-            novo->anterior = memoryList->fim;
-            memoryList->fim->proximo = novo;
+        atual = ListaMemoria.inicio;
+        if (ListaMemoria.tamanhoAlocacoes == 0) ListaMemoria.inicio = ListaMemoria.fim = novo;
+        else if (ListaMemoria.tamanhoAlocacoes == posicao) {
+            novo->anterior = ListaMemoria.fim;
+            ListaMemoria.fim->proximo = novo;
         }
         else {
             for (i = 0; i < posicao; ++i) atual = atual->proximo;
             novo->proximo = atual;
             novo->anterior = atual->anterior;
-            if (atual->anterior == NULL) memoryList->inicio = novo;
+            if (atual->anterior == NULL) ListaMemoria.inicio = novo;
             else atual->anterior->proximo = novo;
             atual->anterior = novo;
         }
-        memoryList->tamanhoAlocacoes++;
+        ListaMemoria.tamanhoAlocacoes++;
     }
 }
 
 void removePosicao (int posicao) {
     Alocacoes *atual;
     int i = 0;
-    if ((posicao > memoryList->tamanhoAlocacoes) || (posicao < 0)) printf("Posicao invalida!\n");
+    if ((posicao > ListaMemoria.tamanhoAlocacoes) || (posicao < 0)) printf("Posicao invalida!\n");
     else {
-        atual = memoryList->inicio;
+        atual = ListaMemoria.inicio;
         if (posicao == 1) { // Caso seja o primeiro
-            memoryList->inicio = memoryList->inicio->proximo;
-            memoryList->inicio->anterior = NULL;
-            if (memoryList->inicio == NULL) memoryList->fim = NULL;
-        } else if (posicao == memoryList->tamanhoAlocacoes) { // Caso seja o ultimo
-            memoryList->fim->anterior->proximo = NULL;
-            memoryList->fim = memoryList->fim->anterior;
+            ListaMemoria.inicio = ListaMemoria.inicio->proximo;
+            ListaMemoria.inicio->anterior = NULL;
+            if (ListaMemoria.inicio == NULL) ListaMemoria.fim = NULL;
+        } else if (posicao == ListaMemoria.tamanhoAlocacoes) { // Caso seja o ultimo
+            ListaMemoria.fim->anterior->proximo = NULL;
+            ListaMemoria.fim = ListaMemoria.fim->anterior;
         } else { // qualquer outro lugar
             for (i = 1; i < posicao; ++i) atual = atual->proximo;
             atual->anterior->proximo = atual->proximo;
             atual->anterior->anterior = atual->anterior;
         }
-        memoryList->tamanhoAlocacoes--;
+        ListaMemoria.tamanhoAlocacoes--;
     }
 }
 
