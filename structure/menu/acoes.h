@@ -3,4 +3,7 @@
 //
 
 // Criando prototipos de funções
-void menu1 ();
+void menu_push();
+void menu_imprimir();
+void menu_preparar();
+void limparTela ();

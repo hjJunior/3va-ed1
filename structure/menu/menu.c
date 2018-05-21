@@ -5,26 +5,27 @@
 #include "menu.h"
 #include "acoes.c"
 
-int showMenu (char menu[][1000], int l){
+int showMenu (char menu[][1000], int l, int size){
     int i, tecla, linha = -1;
     if (l>=0) linha = l;
     else l = 0;
 
     // Imprimir o menu
-    for(i = 0; i < menuSize; i++) printf("[ ] %s\n", menu[i]);
+    for(i = 0; i < size; i++) printf("[ ] %s\n", menu[i]);
+
+    marcarColuna(1, linha, 'x');
 
     tecla = get_code();
     while(tecla != KEY_ENTER){
         marcarColuna(1, linha, ' ');
         switch(tecla){
             case ARROW_UP: if ((linha) > 0+l) linha--; break;
-            case ARROW_DOWN: if((linha) < (menuSize-1+l)) linha++; break;
+            case ARROW_DOWN: if((linha) < (size-1+l)) linha++; break;
         }
-        if(((linha) > 0+l) || ((linha) < (menuSize-1+l))) marcarColuna(1, linha, 'x');
+        if(((linha) > 0+l) || ((linha) < (size-1+l))) marcarColuna(1, linha, 'x');
         tecla = get_code();
     }
-
-    irColunaLinha(0,menuSize+1);
+    irColunaLinha(0,size+1);
     return (linha-l);
 }
 
@@ -43,8 +44,9 @@ void marcarColuna (int coluna, int linha, char c) {
 
 void processarMenu (int selected){
     switch (selected) {
-        case 0: menu1_preparar(); break;
-        case 1: imprimeAlocacoes(); break;
-        default: printf("Precione qualquer tecla para sair %d\n", selected); break;
+        case 0: menu_push(); break;
+        case 1: menu_imprimir(); break;
+        case 2: menu_preparar(); break;
+        default: printf("Precione qualquer tecla para sair\n"); break;
     }
 }

@@ -4,14 +4,25 @@
 
 #include <windows.h>
 #include <conio.h>
-#define menuSize 3
+#define menuSize 4
 
 char menu[menuSize][1000] = {
-    "Preparar memoria",
+    "Fazer alocamento de memoria",
     "Imprimir alocacoes",
+    "Preparar memoria",
     "Sair"
 };
 
+char confirmarMenu[2][1000] = {
+    "Nao",
+    "Sim, estou cliente e desejo continuar"
+};
+
+char algoritimosMenu[3][1000] = {
+        "FIRST-FIT",
+        "BEST-FIT",
+        "WORST-FIT"
+};
 
 enum {
     KEY_ENTER     = 13,
@@ -23,5 +34,5 @@ enum {
 int get_code (void);
 void marcarColuna (int coluna, int linha, char c);
 void irColunaLinha (int coluna, int linha);
-int showMenu (char menu[][1000], int l);
+int showMenu (char menu[][1000], int l, int size);
 void processarMenu (int selected);

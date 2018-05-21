@@ -13,7 +13,7 @@ void imprimeAlocacoes () {
     Alocacoes *atual = ListaMemoria.inicio;
     char hr[] = "|---------------";
     printf("%s%s%s%s|\n", hr, hr, hr, hr);
-    printf("| Capacidade\t| Cap. Usada \t| Cap. Livre \t| N. Programs \t|\n");
+    printf("| Cap. Bloco\t| Cap. Usada \t| Cap. Livre \t| N. Programs \t|\n");
     printf("%s%s%s%s|\n", hr, hr, hr, hr);
     for (; atual != NULL; atual=atual->proximo) printf("| %d\t\t| %d\t\t| %d\t\t| %d\t\t|\n",atual->valorCapacidade, capacidadeUsada(atual), (atual->valorCapacidade - capacidadeUsada(atual)), atual->numProgramasAlocados);
 }
@@ -82,7 +82,7 @@ int capacidadeUsada (Alocacoes* alocacao) {
 }
 
 void pushAlocamento (int programSize, int posicao) {
-    int i, j, usado;
+    int i, usado;
     Alocacoes *atual = ListaMemoria.inicio;
     for (i = 0; i < (posicao-1); i++) atual = atual->proximo;
     usado = capacidadeUsada(atual);

@@ -1,17 +1,21 @@
 #include "structure/index.c"
 
-int main() {
-    printf("Hello, World! 2018\n");
-    int code = showMenu(menu, 1);
-    processarMenu(code);
+/*
+ * ATENÇÂO COMPILAR UTILIZANDO C11 Standard COMPILER
+ * CODIGO NAO COMPATIVEL COM C99 COMPILER
+ *
+ * LISTA DE LINKS ===============================================================
+ * Link 1 (https://stackoverflow.com/questions/814975/getch-is-deprecated)
+ * Link 2 (https://stackoverflow.com/questions/21434735/difference-between-scanf-and-scanf-s)
+ * ===============================================================
+ * Att.
+ * Celso Prazer
+ * Helio S. Junior
+ */
 
-    while (code != (menuSize - 1)) {
-        _getch();
-        system("cls");
-        // Mostrar o menu novamente
-        code = showMenu(menu, 0);
-        processarMenu(code);
-    }
+int main() {
+    limparTela();
+    initMenu();
     _getch();
     return 0;
 }

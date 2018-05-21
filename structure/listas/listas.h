@@ -2,7 +2,8 @@
 // Created by helio.junior on 18/05/2018.
 //
 
-#define MAX_PROGRAMS_ALOCS 10
+#define MAX_BLOCK_SIZE 9999
+#define MAX_PROGRAMS_ALOCS MAX_BLOCK_SIZE
 
 typedef struct alocacoes Alocacoes;
 struct alocacoes {
