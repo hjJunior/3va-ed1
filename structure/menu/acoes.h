@@ -6,4 +6,5 @@
 void menu_push();
 void menu_imprimir();
 void menu_preparar();
+void menu_remover();
 void limparTela ();

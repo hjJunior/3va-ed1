@@ -4,12 +4,13 @@
 
 #include <windows.h>
 #include <conio.h>
-#define menuSize 4
+#define menuSize 5
 
 char menu[menuSize][1000] = {
     "Fazer alocamento de memoria",
     "Imprimir alocacoes",
     "Preparar memoria",
+    "Remover alocacao",
     "Sair"
 };
 

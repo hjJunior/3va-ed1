@@ -91,3 +91,20 @@ void pushAlocamento (int programSize, int posicao) {
         atual->numProgramasAlocados = atual->numProgramasAlocados + 1;
     } else printf("Memoria insuficiente para alocar %d\n", programSize);
 }
+
+void removeAlocamento (int bloco, int posicao) {
+    int i, usado;
+    Alocacoes *atual = ListaMemoria.inicio;
+    if (posicao < ListaMemoria.tamanhoAlocacoes) {
+        for (i = 0; i < (bloco-1); i++) atual = atual->proximo;
+        if (atual->valorAlocado[posicao] >= 0) {
+            atual->valorAlocado[posicao] = 0;
+            atual->numProgramasAlocados = atual->numProgramasAlocados - 1;
+            printf("Alocacao removida com sucesso!\n");
+        } else {
+            printf("Nao foi possivel encontrar essa alocacao\n");
+        }
+    } else {
+        printf("Nao foi possivel encontrar essa alocacao\n");
+    }
+}

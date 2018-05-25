@@ -104,6 +104,19 @@ void menu_push () {
     imprimeAlocacoes();
 }
 
+void menu_remover () {
+    int bloco, posicao;
+    limparTela();
+
+    printf("Informe a posicao do bloco que deseja remover\n");
+    scanf_s("%d", &bloco);
+
+    printf("Informe a posicao do programa que deseja remover\n");
+    scanf_s("%d", &posicao);
+
+    removeAlocamento (bloco, posicao);
+}
+
 void limparTela () {
     #ifdef linux
         system("clear");
