@@ -11,11 +11,15 @@ void criaAlocacoes () {
 
 void imprimeAlocacoes () {
     Alocacoes *atual = ListaMemoria.inicio;
+    int i = 0;
     char hr[] = "|---------------";
-    printf("%s%s%s%s|\n", hr, hr, hr, hr);
-    printf("| Cap. Bloco\t| Cap. Usada \t| Cap. Livre \t| N. Programs \t|\n");
-    printf("%s%s%s%s|\n", hr, hr, hr, hr);
-    for (; atual != NULL; atual=atual->proximo) printf("| %d\t\t| %d\t\t| %d\t\t| %d\t\t|\n",atual->valorCapacidade, capacidadeUsada(atual), (atual->valorCapacidade - capacidadeUsada(atual)), atual->numProgramasAlocados);
+    printf("%s%s%s|\n", hr, hr, hr);
+    printf("| N. Bloco\t| Capacidade \t| Alocada \t|\n");
+    printf("%s%s%s|\n", hr, hr, hr);
+    for (; atual != NULL; atual=atual->proximo) {
+        printf("| %d\t\t| %d\t\t| %d\t\t|\n", i, atual->valorCapacidade, atual->alocado);
+        i++;
+    }
 }
 
 void inserePosicao (int valor, int posicao) {
@@ -67,44 +71,50 @@ void removePosicao (int posicao) {
 Alocacoes *aloca (int valor) {
     Alocacoes *novo = (Alocacoes*)malloc(sizeof(Alocacoes));
     novo->valorCapacidade = valor;
-    novo->numProgramasAlocados = 0;
+    novo->alocado = 0;
     novo->anterior = novo->proximo = NULL;
     return novo;
 }
 
-int capacidadeUsada (Alocacoes* alocacao) {
-    int i = 0, soma = 0;
-    if (alocacao == NULL) return -1;
-    else for (i = 0; i < (int) alocacao->numProgramasAlocados; i++) {
-        soma = soma + alocacao->valorAlocado[i];
+
+void joinMemory (Alocacoes *atual, Alocacoes *proximo, int posicao) {
+    int tmp1, tmp2;
+//    if (proximo == NULL) continue;
+    if ((atual->alocado == 0) && (proximo->alocado == 0)) {
+        // Definindo valores temporarios
+        tmp1 = atual->valorCapacidade;
+        tmp2 = proximo->valorCapacidade;
+
+        printf("Valor atual %d - Valor proximo %d\n", tmp1, tmp2);
+
+        // Remove
+        removePosicao(posicao + 1);
+        removePosicao(posicao + 2);
+
+        // Imprimir depois de remover
+        imprimeAlocacoes();
+
+        // Unifica os dois em um so
+        inserePosicao(tmp1 + tmp2, posicao);
+
+        imprimeAlocacoes();
+        // Reiniciar
+        // if (proximo->proximo != NULL) atual = atual->proximo;
     }
-    return soma;
 }
 
-void pushAlocamento (int programSize, int posicao) {
-    int i, usado;
-    Alocacoes *atual = ListaMemoria.inicio;
-    for (i = 0; i < (posicao-1); i++) atual = atual->proximo;
-    usado = capacidadeUsada(atual);
-    if ((usado != -1) && ((atual->valorCapacidade - usado) >= programSize)) {
-        atual->valorAlocado[atual->numProgramasAlocados] = programSize;
-        atual->numProgramasAlocados = atual->numProgramasAlocados + 1;
-    } else printf("Memoria insuficiente para alocar %d\n", programSize);
-}
 
-void removeAlocamento (int bloco, int posicao) {
-    int i, usado;
+void desfragmentar() {
+    imprimeAlocacoes();
     Alocacoes *atual = ListaMemoria.inicio;
-    if (posicao < ListaMemoria.tamanhoAlocacoes) {
-        for (i = 0; i < (bloco-1); i++) atual = atual->proximo;
-        if (atual->valorAlocado[posicao] >= 0) {
-            atual->valorAlocado[posicao] = 0;
-            atual->numProgramasAlocados = atual->numProgramasAlocados - 1;
-            printf("Alocacao removida com sucesso!\n");
-        } else {
-            printf("Nao foi possivel encontrar essa alocacao\n");
-        }
-    } else {
-        printf("Nao foi possivel encontrar essa alocacao\n");
+    Alocacoes *tmp = ListaMemoria.inicio;
+    Alocacoes *proximo;
+    int posicao = 0;
+    int count = 0;
+    for (; ((atual != NULL)); atual=atual->proximo) {
+        joinMemory (atual, atual->proximo, posicao);
+        posicao++;
     }
+    imprimeAlocacoes();
+    printf("Desfragmentacao realizada com sucesso! (%d programas foram realocados)\n", count);
 }

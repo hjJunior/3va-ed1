@@ -15,7 +15,8 @@
 
 int main() {
     limparTela();
-    initMenu();
-    _getch();
+//    initMenu();
+    menu_testIt();
+//    _getch();
     return 0;
 }

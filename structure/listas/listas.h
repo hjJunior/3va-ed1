@@ -7,9 +7,8 @@
 
 typedef struct alocacoes Alocacoes;
 struct alocacoes {
-    int valorAlocado[MAX_PROGRAMS_ALOCS];
     int valorCapacidade;
-    int numProgramasAlocados;
+    int alocado;
     Alocacoes *proximo;
     Alocacoes *anterior;
 };
@@ -27,7 +26,6 @@ void criaAlocacoes();
 void imprimeAlocacoes();
 void inserePosicao(int valor, int posicao);
 void removePosicao(int posicao);
+void desfragmentar();
+void joinMemory (Alocacoes *atual, Alocacoes *proximo, int posicao);
 Alocacoes* aloca (int valor);
-int capacidadeUsada (Alocacoes* alocacao);
-void pushAlocamento (int programSize, int posicao);
-void removeAlocamento (int bloco, int posicao);

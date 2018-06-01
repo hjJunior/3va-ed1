@@ -5,7 +5,7 @@
 #include "acoes.h"
 
 void menu_preparar () {
-    int totalSlots = 0, tamanhoSlots = 0, i = 0;
+    int tamanhoSlots = 0;
     char s[] = "==============================================";
     limparTela();
     if ((ListaMemoria.inicio != NULL) || (ListaMemoria.tamanhoAlocacoes >= 1)) {
@@ -18,28 +18,12 @@ void menu_preparar () {
     printf("\t\tVAMOS A CONFIGURACAO DA MEMORIA\n");
     printf("\t%s\n", s);
     // Pergunta 1
-    printf("\n\n\t1. Quantos blocos voce deseja criar?\n\t=> ");
-    scanf_s("%d", &totalSlots);
-
-    // Pergunta 2
-    /*
-    printf("\n\n\t2. Qual tamanho de cada bloco?\n\t=> ");
+    printf("\n\n\t1. Qual tamanho total da memoria?\n\t=> ");
     scanf_s("%d", &tamanhoSlots);
-    printf("\t%s\n", s);
-    */
 
     criaAlocacoes();
-
-    for (i = 0; i < totalSlots; i++) {
-        printf("\n\n\t%d. Qual tamanho do bloco %d\n\t=> ", (i+2), (totalSlots-(i)));
-        scanf_s("%d", &tamanhoSlots);
-        while (tamanhoSlots > MAX_BLOCK_SIZE) {
-            printf("\tO valor deve ser menor ou igual a %d\n\t=> ", MAX_BLOCK_SIZE);
-            scanf_s("%d", &tamanhoSlots);
-        }
-        inserePosicao(tamanhoSlots, 0);
-    }
-    printf("\tOs espacos para alocacoes na memoria foram criados!\n");
+    inserePosicao(tamanhoSlots, 0);
+    printf("\tA memoria foi criada!\n");
 }
 
 void menu_imprimir () {
@@ -87,7 +71,7 @@ void menu_push () {
     // Obter a posição onde possa ser inserido usando o algoritimo escolhido
     pos = searchMemory(valor, algo);
     if (pos == -1) return;
-    printf("Mais gente, %d\n", pos);
+    // printf("Mais gente, %d\n", pos);
 
     // Mostrar o antes
     printf("%s\n", s);
@@ -95,7 +79,7 @@ void menu_push () {
     printf("%s\n\n\n", s);
     imprimeAlocacoes();
 
-    pushAlocamento (valor, (pos+1));
+    pushProgram (valor, (pos+1));
 
     // Mostrar depois de realizar a operação
     printf("\n\n\n%s\n", s);
@@ -105,16 +89,43 @@ void menu_push () {
 }
 
 void menu_remover () {
-    int bloco, posicao;
+    int posicao;
     limparTela();
-
-    printf("Informe a posicao do bloco que deseja remover\n");
-    scanf_s("%d", &bloco);
 
     printf("Informe a posicao do programa que deseja remover\n");
     scanf_s("%d", &posicao);
 
-    removeAlocamento (bloco, posicao);
+    removeProgram (posicao);
+}
+
+void menu_desfragmentar () {
+    limparTela();
+
+    printf("Iniciando desfragmentacao\n");
+    desfragmentar();
+}
+void menu_testIt () {
+    int pos;
+    // Criar alocações
+    criaAlocacoes();
+    inserePosicao(50, 0);
+
+    // Insere as alocações de programas
+    pos = searchMemory(10, 1);
+    if (pos == -1) return;
+    pushProgram (10, (pos+1));
+
+    pos = searchMemory(10, 1);
+    if (pos == -1) return;
+    pushProgram (10, (pos+1));
+
+    // Remover os programas
+    removeProgram (1);
+    removeProgram (2);
+
+    // Executar modo de desgragmentacao
+    menu_desfragmentar();
+
 }
 
 void limparTela () {

@@ -48,6 +48,7 @@ void processarMenu (int selected){
         case 1: menu_imprimir(); break;
         case 2: menu_preparar(); break;
         case 3: menu_remover(); break;
+        case 4: menu_desfragmentar(); break;
         default: printf("Precione qualquer tecla para sair\n"); break;
     }
 }

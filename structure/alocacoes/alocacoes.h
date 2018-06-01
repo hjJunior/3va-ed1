@@ -7,3 +7,5 @@
 #define ALGO_WORST_FIT 2
 
 int searchMemory (int valor, int algorithm);
+void pushProgram (int programSize, int algorithm);
+void removeProgram (int poisition);
